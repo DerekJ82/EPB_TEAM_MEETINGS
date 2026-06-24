@@ -26,6 +26,24 @@ jobs:
           CLASPRC_JSON: ${{ secrets.CLASPRC_JSON }}
         run: echo "$CLASPRC_JSON" > ~/.clasprc.json
 
+      - name: Validate credentials file
+        run: |
+          echo "File size: $(wc -c < ~/.clasprc.json) bytes"
+          node -e "const j=JSON.parse(require('fs').readFileSync(process.env.HOME+'/.clasprc.json','utf8')); console.log('JSON valid. Keys:', Object.keys(j)); const t=j.tokens&&j.tokens.default; console.log('Has refresh_token:', !!(t&&t.refresh_token)); console.log('Token expiry:', t&&new Date(t.expiry_date).toISOString());"
+
+      - name: Test OAuth token refresh
+        run: |
+          node -e "
+            const https=require('https');
+            const fs=require('fs');
+            const rc=JSON.parse(fs.readFileSync(process.env.HOME+'/.clasprc.json','utf8'));
+            const t=rc.tokens.default;
+            const body='client_id='+encodeURIComponent(t.client_id)+'&client_secret='+encodeURIComponent(t.client_secret)+'&refresh_token='+encodeURIComponent(t.refresh_token)+'&grant_type=refresh_token';
+            const req=https.request({hostname:'oauth2.googleapis.com',path:'/token',method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded','Content-Length':Buffer.byteLength(body)}},res=>{let d='';res.on('data',c=>d+=c);res.on('end',()=>{const r=JSON.parse(d);console.log('Status:',res.statusCode);if(r.error)console.log('OAuth error:',r.error,r.error_description);else console.log('Token refresh OK, expires_in:',r.expires_in);});});
+            req.on('error',e=>console.log('Network error:',e.message));
+            req.write(body);req.end();
+          "
+
       - name: Push to Google Apps Script
         run: clasp push --force
 
