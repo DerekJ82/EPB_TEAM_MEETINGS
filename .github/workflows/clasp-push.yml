@@ -24,7 +24,7 @@ jobs:
       - name: Write CLASP credentials
         env:
           CLASPRC_JSON: ${{ secrets.CLASPRC_JSON }}
-        run: echo "$CLASPRC_JSON" | jq -c . > ~/.clasprc.json
+        run: echo "$CLASPRC_JSON" > ~/.clasprc.json
 
       - name: Push to Google Apps Script
         run: clasp push --force
