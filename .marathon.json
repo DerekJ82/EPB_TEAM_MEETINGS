@@ -1,0 +1,9 @@
+{
+  "marathon_project_id": "bcbe0327-18a9-4716-90bc-f35b003e6f89",
+  "name": "EPB Team Meeting",
+  "description": "You are onboarding an existing team meeting dashboard to marathon for better build out capabilities.    You want to add an archive option to prior team meetings so that team members can go back and look at prior versions.   You also want to change the style of the presentation to be more in line with the slides.html file in the project folder (from Derek's MBA Application).   THis project serves as the refactor and then we will bring in details from the stratech presentation earlier this month as a walk through for the team.    Additionally you want to set up clasp push via github, with the repository already set up.\n\nG:\\My Drive\\Marathon\\Projects\\S&P Team Meetings",
+  "owner_peer_id": "e1dc239d-621a-42e4-bd3f-e6b6e2c03c8b",
+  "owner_email": "derek.johnson@telus.com",
+  "version": "1.0",
+  "moved_at": "2026-06-24T14:14:34.749Z"
+}

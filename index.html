@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EPB Strategy and Planning - June 2026 Team Meeting</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --purple:      #4B286D;
+      --purple-dark: #3A1D55;
+      --purple-mid:  #7C53A5;
+      --green:       #66CC00;
+      --green-dark:  #2b8000;
+      --dark:        #2A2C2E;
+      --mid:         #6E6E73;
+      --light:       #F4F4F7;
+      --white:       #FFFFFF;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      font-family: var(--font);
+      background: #000;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* ── Slideshow container ───────────────────────────────────── */
+    #slides {
+      width: 100%; height: 100%;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      padding: 50px 70px 80px;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ── Navigation dots ──────────────────────────────────────── */
+    #nav-dots {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .dot.active { background: var(--green); }
+
+    /* ── Nav arrows ───────────────────────────────────────────── */
+    .arrow {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: white;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      z-index: 10;
+      transition: background 0.15s;
+    }
+    .arrow:hover { background: rgba(255,255,255,0.22); }
+    #arrow-prev { left: 20px; }
+    #arrow-next { right: 20px; }
+
+    /* ── Slide counter ────────────────────────────────────────── */
+    #slide-counter {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      color: rgba(255,255,255,0.4);
+      font-size: 12px;
+      z-index: 10;
+    }
+
+    /* ── Hint ─────────────────────────────────────────────────── */
+    #hint {
+      position: fixed;
+      bottom: 28px;
+      left: 28px;
+      color: rgba(255,255,255,0.3);
+      font-size: 11px;
+      z-index: 10;
+    }
+
+    /* ── fadeUp animation ─────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide.active .animate-child {
+      opacity: 0;
+      animation: fadeUp 0.5s ease-out forwards;
+    }
+    .slide.active .animate-child:nth-child(1) { animation-delay: 0.05s; }
+    .slide.active .animate-child:nth-child(2) { animation-delay: 0.15s; }
+    .slide.active .animate-child:nth-child(3) { animation-delay: 0.25s; }
+    .slide.active .animate-child:nth-child(4) { animation-delay: 0.35s; }
+    .slide.active .animate-child:nth-child(5) { animation-delay: 0.45s; }
+    .slide.active .animate-child:nth-child(6) { animation-delay: 0.55s; }
+    .slide.active .animate-child:nth-child(7) { animation-delay: 0.65s; }
+
+    /* ──────────────────────────────────────────────────────────────
+       SLIDE 0: Title
+    ────────────────────────────────────────────────────────────── */
+    #slide-0 {
+      background: var(--purple-dark);
+      justify-content: center;
+    }
+
+    .title-eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    #slide-0 h1 {
+      font-size: 5rem;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .title-subtitle {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .title-tagline {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 32px;
+    }
+
+    .title-divider {
+      width: 60px;
+      height: 3px;
+      background: var(--green);
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 20px;
+      padding: 8px 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.75);
+    }
+    .tag i { margin-right: 8px; }
+    .tag-strategy { border-color: rgba(102,204,0,0.35); color: var(--green); }
+    .tag-planning  { border-color: rgba(124,83,165,0.45); color: var(--purple-mid); }
+
+    /* ──────────────────────────────────────────────────────────────
+       SLIDE 1: Agenda
+    ────────────────────────────────────────────────────────────── */
+    #slide-1 {
+      background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 100%);
+      flex-direction: row;
+      align-items: stretch;
+      gap: 40px;
+    }
+
+    .agenda-left {
+      flex: 1.2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .agenda-main-title {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 32px;
+    }
+
+    .agenda-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .agenda-items li {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .agenda-items li:hover { transform: translateX(8px); }
+
+    .agenda-items .num {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--green);
+      width: 52px;
+      text-align: right;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .agenda-items .text {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .agenda-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .outcomes-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-top: 4px solid var(--green);
+      border-radius: 16px;
+      padding: 32px;
+      width: 100%;
+    }
+
+    .outcomes-card h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .outcomes-card .subtitle {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.42);
+      font-style: italic;
+      margin-bottom: 28px;
+    }
+
+    .outcomes-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .outcomes-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .outcome-icon {
+      background: rgba(102,204,0,0.14);
+      border-radius: 8px;
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--green);
+      font-size: 16px;
+    }
+
+    .outcomes-list strong {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .outcomes-list span {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* ──────────────────────────────────────────────────────────────
+       SHARED SLIDE HEADER (content slides)
+    ────────────────────────────────────────────────────────────── */
+    .slide-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-shrink: 0;
+    }
+
+    .header-num {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 0.85;
+      letter-spacing: -2px;
+    }
+
+    .header-content h2 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .header-content p {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .header-line {
+      height: 4px;
+      width: 50px;
+      background: var(--green);
+      border-radius: 2px;
+      margin-top: 8px;
+    }
+
+    .content-area {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .grid-container {
+      display: grid;
+      gap: 16px;
+      min-height: 0;
+      flex: 1;
+    }
+
+    /* ──────────────────────────────────────────────────────────────
+       DARK CARD (used across multiple slides)
+    ────────────────────────────────────────────────────────────── */
+    #slide-2 { background: var(--dark); }
+    #slide-2 .header-content h2 { color: var(--white); }
+    #slide-2 .header-content p  { color: var(--mid); }
+
+    #slide-3 { background: var(--purple-dark); }
+    #slide-3 .header-content h2 { color: var(--white); }
+    #slide-3 .header-content p  { color: rgba(255,255,255,0.55); }
+
+    #slide-4 { background: var(--dark); }
+    #slide-4 .header-content h2 { color: var(--white); }
+    #slide-4 .header-content p  { color: var(--mid); }
+
+    #slide-5 {
+      background: linear-gradient(135deg, var(--purple-dark) 0%, var(--dark) 100%);
+    }
+    #slide-5 .header-content h2 { color: var(--white); }
+    #slide-5 .header-content p  { color: rgba(255,255,255,0.55); }
+
+    #slide-6 { background: var(--dark); }
+    #slide-6 .header-content h2 { color: var(--white); }
+    #slide-6 .header-content p  { color: var(--mid); }
+
+    #slide-7 { background: var(--purple-dark); }
+    #slide-7 .header-content h2 { color: var(--white); }
+    #slide-7 .header-content p  { color: rgba(255,255,255,0.55); }
+
+    .grid-box-dark {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .grid-box-dark h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .grid-box-dark p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.6;
+    }
+
+    /* ── Inno-card (key findings) ─────────────────────────────── */
+    .inno-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-left: 4px solid var(--green);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .inno-card h4 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .inno-card p {
+      font-size: 0.86rem;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.65;
+    }
+
+    /* ── Priority cards (3-col grid) ─────────────────────────── */
+    .priority-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-top: 4px solid var(--purple-mid);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .priority-card .priority-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: rgba(124,83,165,0.18);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--purple-mid);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .priority-card h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--white);
+      margin: 0;
+    }
+
+    .priority-card p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.60);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    /* ── Discussion question cards ────────────────────────────── */
+    .question-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-top: 4px solid var(--green);
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .question-num {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .question-card h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.3;
+      flex: 1;
+    }
+
+    .question-card p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+    }
+
+    /* ── Stratech context box ─────────────────────────────────── */
+    .context-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 18px 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .context-box .ctx-icon {
+      color: var(--purple-mid);
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .context-box p {
+      font-size: 0.84rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.6;
+    }
+
+    .context-box strong {
+      color: var(--white);
+    }
+
+    /* ── Team implication items ───────────────────────────────── */
+    .implication-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .implication-item:last-child { border-bottom: none; }
+
+    .implication-item .imp-icon {
+      background: rgba(102,204,0,0.1);
+      border-radius: 8px;
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--green);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .implication-item h5 {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .implication-item p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.58);
+      line-height: 1.5;
+    }
+
+    /* ── Notes input (slide 7) ────────────────────────────────── */
+    .notes-form {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .notes-form label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .notes-form select,
+    .notes-form textarea {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      color: rgba(255,255,255,0.85);
+      font-family: var(--font);
+      font-size: 0.85rem;
+      padding: 10px 14px;
+      outline: none;
+    }
+
+    .notes-form select {
+      cursor: pointer;
+    }
+
+    .notes-form select option {
+      background: var(--dark);
+    }
+
+    .notes-form textarea {
+      min-height: 90px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .notes-form select:focus,
+    .notes-form textarea:focus { border-color: rgba(102,204,0,0.4); }
+    .notes-form textarea::placeholder { color: rgba(255,255,255,0.28); }
+
+    .notes-form-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    #sheet-submit-btn {
+      background: var(--purple);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      padding: 10px 22px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    #sheet-submit-btn:hover:not(:disabled) { background: var(--purple-mid); }
+    #sheet-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    #sheet-status {
+      font-size: 0.78rem;
+      color: var(--green);
+      flex: 1;
+    }
+
+    #sheet-link {
+      font-size: 0.78rem;
+      color: var(--green);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* ── Archive button ───────────────────────────────────────────── */
+    #archive-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: white;
+      padding: 8px 14px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: var(--font);
+      font-weight: 600;
+      z-index: 10;
+      transition: background 0.15s;
+    }
+    #archive-btn:hover { background: rgba(255,255,255,0.22); }
+
+    /* ── Archive overlay ──────────────────────────────────────────── */
+    #archive-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0,0,0,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    #archive-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #archive-panel {
+      width: 90%;
+      max-width: 800px;
+      max-height: 80vh;
+      background: var(--purple-dark);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    #archive-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 28px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      flex-shrink: 0;
+    }
+    #archive-header h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+    #archive-close {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      font-family: var(--font);
+      transition: background 0.15s;
+    }
+    #archive-close:hover { background: rgba(255,255,255,0.2); }
+    #archive-grid {
+      padding: 24px 28px;
+      overflow-y: auto;
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+      align-content: start;
+    }
+    .archive-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-top: 3px solid var(--green);
+      border-radius: 14px;
+      padding: 20px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .archive-card:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-2px);
+    }
+    .archive-card .card-date {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+    .archive-card .card-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .archive-card .card-desc {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+    }
+    #archive-loading {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.9rem;
+      padding: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="slides">
+
+  <!-- ── SLIDE 0: Title ───────────────────────────────────────── -->
+  <div class="slide active" id="slide-0">
+    <p class="title-eyebrow animate-child">
+      <i class="fa-solid fa-chart-line"></i> EPB Strategy &amp; Planning
+    </p>
+    <h1 class="animate-child">EPB Strategy<br>and Planning</h1>
+    <div class="title-subtitle animate-child">
+      June 2026 Team Meeting
+    </div>
+    <p class="title-tagline animate-child">Reviewing and aligning on the Stratech strategic planning session.</p>
+    <div class="title-divider animate-child"></div>
+    <div class="tag-row animate-child">
+      <span class="tag tag-strategy"><i class="fa-solid fa-compass"></i>Strategic Planning</span>
+      <span class="tag tag-planning"><i class="fa-solid fa-diagram-project"></i>Stratech Walkthrough</span>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 1: Agenda ──────────────────────────────────────── -->
+  <div class="slide" id="slide-1">
+    <div class="agenda-left animate-child">
+      <h2 class="agenda-main-title">Agenda</h2>
+      <ul class="agenda-items">
+        <li onclick="goTo(2)"><span class="num">01.</span><span class="text">Stratech Overview</span></li>
+        <li onclick="goTo(3)"><span class="num">02.</span><span class="text">Key Findings</span></li>
+        <li onclick="goTo(4)"><span class="num">03.</span><span class="text">Strategic Priorities</span></li>
+        <li onclick="goTo(5)"><span class="num">04.</span><span class="text">Team Implications</span></li>
+        <li onclick="goTo(6)"><span class="num">05.</span><span class="text">Discussion &amp; Q&amp;A</span></li>
+      </ul>
+    </div>
+    <div class="agenda-right animate-child">
+      <div class="outcomes-card">
+        <h3><i class="fa-solid fa-bullseye" style="color:var(--green);margin-right:8px;"></i>Session Goals</h3>
+        <p class="subtitle">What we want to leave today having achieved:</p>
+        <ul class="outcomes-list">
+          <li>
+            <div class="outcome-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <div>
+              <strong>Shared Understanding</strong>
+              <span>Everyone on the team understands the key findings from the Stratech session.</span>
+            </div>
+          </li>
+          <li>
+            <div class="outcome-icon"><i class="fa-solid fa-map"></i></div>
+            <div>
+              <strong>Clear H2 Direction</strong>
+              <span>Agree on how Stratech outputs translate into our team priorities for the second half of 2026.</span>
+            </div>
+          </li>
+          <li>
+            <div class="outcome-icon"><i class="fa-solid fa-handshake"></i></div>
+            <div>
+              <strong>Team Alignment</strong>
+              <span>Surface any questions, concerns, or opportunities and capture action items together.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 2: Stratech Overview ───────────────────────────── -->
+  <!-- FILL IN: Update the context box text below with the actual date, presenter(s), and scope of the Stratech session -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header animate-child">
+      <div class="header-num">01.</div>
+      <div class="header-content">
+        <h2>Stratech: What It Is</h2>
+        <p>Understanding the session, its purpose, and what was covered.</p>
+        <div class="header-line"></div>
+      </div>
+    </div>
+    <div class="content-area">
+      <div class="grid-container animate-child" style="grid-template-columns:1fr 1fr;">
+
+        <div class="grid-box-dark">
+          <h4><i class="fa-solid fa-circle-info"></i> About Stratech</h4>
+          <!-- FILL IN: Replace this paragraph with a plain-language explanation of what Stratech is —
+               e.g., "Stratech is TELUS's annual strategic check-in process where senior leaders review
+               the business unit's strategic direction and priorities for the coming 12–18 months."
+               Include who runs it, what the format was (presentation, workshop, etc.), and the timeframe covered. -->
+          <p style="color:rgba(255,255,255,0.4);font-style:italic;">[FILL IN: Describe what Stratech is and how it works at TELUS — the purpose of the process, the cadence, and who is involved.]</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="context-box">
+            <i class="fa-solid fa-calendar-days ctx-icon"></i>
+            <p>
+              <!-- FILL IN: Insert the date and format of the Stratech session, e.g., "Held June 10, 2026 — a 3-hour leadership workshop with VP-level facilitation." -->
+              <strong>When &amp; How:</strong> <span style="color:rgba(255,255,255,0.4);font-style:italic;">[FILL IN: Date, duration, and format of the Stratech session]</span>
+            </p>
+          </div>
+
+          <div class="context-box">
+            <i class="fa-solid fa-person-chalkboard ctx-icon"></i>
+            <p>
+              <!-- FILL IN: Name the presenter(s) or facilitators, e.g., "Presented by Jane Smith (VP Strategy) and facilitated by the EPB leadership team." -->
+              <strong>Who Presented:</strong> <span style="color:rgba(255,255,255,0.4);font-style:italic;">[FILL IN: Presenter name(s) and their roles]</span>
+            </p>
+          </div>
+
+          <div class="context-box">
+            <i class="fa-solid fa-list-check ctx-icon"></i>
+            <p>
+              <!-- FILL IN: Summarize the main topics/sections covered in the Stratech presentation — this can be a brief list inline, e.g., "Covered: 2025 performance review, market landscape, 3 strategic pillars for H2 2026, and resource prioritization." -->
+              <strong>Topics Covered:</strong> <span style="color:rgba(255,255,255,0.4);font-style:italic;">[FILL IN: List the main sections or topics from the Stratech presentation]</span>
+            </p>
+          </div>
+
+          <div class="context-box">
+            <i class="fa-solid fa-users ctx-icon"></i>
+            <p>
+              <!-- FILL IN: Describe the audience, e.g., "Attended by the EPB S&P leadership team and key business partners." -->
+              <strong>Audience:</strong> <span style="color:rgba(255,255,255,0.4);font-style:italic;">[FILL IN: Who was in the room / on the call for the original session]</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 3: Key Strategic Findings ──────────────────────── -->
+  <div class="slide" id="slide-3">
+    <div class="slide-header animate-child">
+      <div class="header-num">02.</div>
+      <div class="header-content">
+        <h2>Key Strategic Findings</h2>
+        <p>The major insights from the Stratech session that shape our direction.</p>
+        <div class="header-line"></div>
+      </div>
+    </div>
+    <div class="content-area">
+      <!-- FILL IN: Add 2–3 inno-cards below. Each card = one major finding.
+           Suggested format: bold finding title + 2-sentence explanation.
+           Example structure: <h4><i class="fa-solid fa-[icon]"></i> Finding Title</h4><p>First sentence context. Second sentence implication.</p>
+           Delete placeholder cards that you don't need. -->
+      <div class="grid-container animate-child" style="grid-template-rows:1fr 1fr 1fr;grid-template-columns:1fr;">
+
+        <div class="inno-card">
+          <h4>
+            <i class="fa-solid fa-one"></i>
+            <!-- FILL IN: Replace with the title of your first key finding (e.g., "Customer Experience is the #1 Growth Lever") -->
+            [FILL IN: Key Finding #1 Title]
+          </h4>
+          <!-- FILL IN: Insert the 3 key strategic findings from the Stratech presentation here.
+               Suggested format: bold finding title + 2-sentence explanation.
+               For Finding #1: describe what was identified and why it matters strategically. -->
+          <p style="color:rgba(255,255,255,0.38);font-style:italic;">[FILL IN: 2-sentence explanation of Finding #1 — what was identified and why it matters for the business.]</p>
+        </div>
+
+        <div class="inno-card">
+          <h4>
+            <i class="fa-solid fa-two"></i>
+            <!-- FILL IN: Replace with the title of your second key finding -->
+            [FILL IN: Key Finding #2 Title]
+          </h4>
+          <!-- FILL IN: For Finding #2: describe what was identified and why it matters strategically. -->
+          <p style="color:rgba(255,255,255,0.38);font-style:italic;">[FILL IN: 2-sentence explanation of Finding #2 — what was identified and why it matters for the business.]</p>
+        </div>
+
+        <div class="inno-card">
+          <h4>
+            <i class="fa-solid fa-three"></i>
+            <!-- FILL IN: Replace with the title of your third key finding -->
+            [FILL IN: Key Finding #3 Title]
+          </h4>
+          <!-- FILL IN: For Finding #3: describe what was identified and why it matters strategically. -->
+          <p style="color:rgba(255,255,255,0.38);font-style:italic;">[FILL IN: 2-sentence explanation of Finding #3 — what was identified and why it matters for the business.]</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 4: Strategic Priorities for H2 2026 ────────────── -->
+  <div class="slide" id="slide-4">
+    <div class="slide-header animate-child">
+      <div class="header-num">03.</div>
+      <div class="header-content">
+        <h2>Our Strategic Priorities for H2 2026</h2>
+        <p>How Stratech findings translate into what our team focuses on.</p>
+        <div class="header-line"></div>
+      </div>
+    </div>
+    <div class="content-area">
+      <!-- FILL IN: Fill in each priority card below with a specific EPB S&P team priority derived from the Stratech findings.
+           Each card = one priority. Suggested structure: icon + 1-line title + 2-3 sentence description.
+           Map each priority back to one of the key findings from Slide 3. -->
+      <div class="grid-container animate-child" style="grid-template-columns:1fr 1fr 1fr;">
+
+        <div class="priority-card">
+          <div class="priority-icon"><i class="fa-solid fa-flag"></i></div>
+          <!-- FILL IN: Replace with Priority #1 name, e.g., "Accelerate AI-Driven Reporting" -->
+          <h4>[FILL IN: Priority #1 Name]</h4>
+          <!-- FILL IN: 2-3 sentences describing this priority and how it connects to the Stratech finding.
+               E.g., "Based on Finding #1, we will prioritize X by doing Y. This means Z changes to how we currently work." -->
+          <p>[FILL IN: Description of Priority #1 and its connection to a Stratech finding. Include what we will do differently or more of in H2 2026.]</p>
+        </div>
+
+        <div class="priority-card">
+          <div class="priority-icon"><i class="fa-solid fa-rocket"></i></div>
+          <!-- FILL IN: Replace with Priority #2 name -->
+          <h4>[FILL IN: Priority #2 Name]</h4>
+          <!-- FILL IN: 2-3 sentences for Priority #2 -->
+          <p>[FILL IN: Description of Priority #2 and its connection to a Stratech finding. Include what we will do differently or more of in H2 2026.]</p>
+        </div>
+
+        <div class="priority-card">
+          <div class="priority-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+          <!-- FILL IN: Replace with Priority #3 name -->
+          <h4>[FILL IN: Priority #3 Name]</h4>
+          <!-- FILL IN: 2-3 sentences for Priority #3 -->
+          <p>[FILL IN: Description of Priority #3 and its connection to a Stratech finding. Include what we will do differently or more of in H2 2026.]</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 5: What This Means for Our Team ────────────────── -->
+  <div class="slide" id="slide-5">
+    <div class="slide-header animate-child">
+      <div class="header-num">04.</div>
+      <div class="header-content">
+        <h2>What This Means for Our Team</h2>
+        <p>Concrete day-to-day implications for the S&amp;P team.</p>
+        <div class="header-line"></div>
+      </div>
+    </div>
+    <div class="content-area">
+      <!-- FILL IN: Each implication-item below represents one concrete change or emphasis for the team's daily work.
+           Aim for 4–5 items. Each = icon + bold title + 1-2 sentence explanation.
+           Think about: workload shifts, new processes, skill development, partner relationships, or delivery expectations. -->
+      <div class="animate-child" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+
+        <div class="implication-item">
+          <div class="imp-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
+          <div>
+            <!-- FILL IN: Replace with a concrete implication title, e.g., "Increased Focus on Quarterly Business Reviews" -->
+            <h5>[FILL IN: Implication #1 — Short Title]</h5>
+            <!-- FILL IN: 1-2 sentences on what this means day-to-day. E.g., "We will be expected to deliver X more frequently. Derek will work with the team to re-prioritize Y to accommodate this." -->
+            <p>[FILL IN: What does this mean for the team's day-to-day work? Be specific about what changes or what they should expect more/less of.]</p>
+          </div>
+        </div>
+
+        <div class="implication-item">
+          <div class="imp-icon"><i class="fa-solid fa-people-group"></i></div>
+          <div>
+            <!-- FILL IN: Replace with a second implication title -->
+            <h5>[FILL IN: Implication #2 — Short Title]</h5>
+            <!-- FILL IN: Day-to-day description for implication #2 -->
+            <p>[FILL IN: What does this mean for the team's day-to-day work? Be specific about what changes or what they should expect more/less of.]</p>
+          </div>
+        </div>
+
+        <div class="implication-item">
+          <div class="imp-icon"><i class="fa-solid fa-gear"></i></div>
+          <div>
+            <!-- FILL IN: Replace with a third implication title -->
+            <h5>[FILL IN: Implication #3 — Short Title]</h5>
+            <!-- FILL IN: Day-to-day description for implication #3 -->
+            <p>[FILL IN: What does this mean for the team's day-to-day work? Be specific about what changes or what they should expect more/less of.]</p>
+          </div>
+        </div>
+
+        <div class="implication-item">
+          <div class="imp-icon"><i class="fa-solid fa-lightbulb"></i></div>
+          <div>
+            <!-- FILL IN: Replace with a fourth implication title -->
+            <h5>[FILL IN: Implication #4 — Short Title]</h5>
+            <!-- FILL IN: Day-to-day description for implication #4 -->
+            <p>[FILL IN: What does this mean for the team's day-to-day work? Be specific about what changes or what they should expect more/less of.]</p>
+          </div>
+        </div>
+
+        <div class="implication-item">
+          <div class="imp-icon"><i class="fa-solid fa-calendar-check"></i></div>
+          <div>
+            <!-- FILL IN: Replace with a fifth implication title (optional — delete this block if you only need 4) -->
+            <h5>[FILL IN: Implication #5 — Short Title (optional)]</h5>
+            <!-- FILL IN: Day-to-day description for implication #5 (optional) -->
+            <p>[FILL IN: What does this mean for the team's day-to-day work? Delete this block if not needed.]</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 6: Discussion & Alignment ──────────────────────── -->
+  <div class="slide" id="slide-6">
+    <div class="slide-header animate-child">
+      <div class="header-num">05.</div>
+      <div class="header-content">
+        <h2>Discussion &amp; Alignment</h2>
+        <p>Three questions to ground our conversation as a team.</p>
+        <div class="header-line"></div>
+      </div>
+    </div>
+    <div class="content-area">
+      <!-- FILL IN: These are the 3 structured discussion questions for the team. Customize each question to reflect
+           your actual Stratech content and the tensions or decisions the team needs to work through together.
+           Each card = one question with a short facilitation prompt below it. -->
+      <div class="grid-container animate-child" style="grid-template-columns:1fr 1fr 1fr;">
+
+        <div class="question-card">
+          <div class="question-num">Q1</div>
+          <!-- FILL IN: Replace with your first discussion question. E.g., "Does this strategic direction feel achievable given our current capacity?" -->
+          <h4>[FILL IN: Discussion Question #1 — e.g., "Where do you see the biggest opportunity for our team in the Stratech findings?"]</h4>
+          <!-- FILL IN: Add a brief facilitation prompt to help the team think through their answer -->
+          <p>[FILL IN: Facilitation prompt or context for Q1 — e.g., "Think about your specific work area and where you see the most room to add value."]</p>
+        </div>
+
+        <div class="question-card">
+          <div class="question-num">Q2</div>
+          <!-- FILL IN: Replace with your second discussion question. E.g., "What obstacles might prevent us from delivering on Priority #2?" -->
+          <h4>[FILL IN: Discussion Question #2 — e.g., "What concerns or risks should Derek escalate to leadership?"]</h4>
+          <!-- FILL IN: Add a brief facilitation prompt for Q2 -->
+          <p>[FILL IN: Facilitation prompt or context for Q2 — e.g., "Be honest about capacity, dependencies, or gaps that could get in the way."]</p>
+        </div>
+
+        <div class="question-card">
+          <div class="question-num">Q3</div>
+          <!-- FILL IN: Replace with your third discussion question. E.g., "What one thing should we start doing differently starting next sprint?" -->
+          <h4>[FILL IN: Discussion Question #3 — e.g., "What's one thing we should stop, start, or continue based on what we heard?"]</h4>
+          <!-- FILL IN: Add a brief facilitation prompt for Q3 -->
+          <p>[FILL IN: Facilitation prompt or context for Q3 — e.g., "Try to name something concrete and actionable rather than general."]</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 7: Next Steps & Action Items ────────────────────── -->
+  <div class="slide" id="slide-7">
+    <div class="slide-header animate-child">
+      <div class="header-num" style="color:var(--green)">08.</div>
+      <div class="header-content">
+        <h2 style="color:var(--white);">Next Steps &amp; Action Items</h2>
+        <p style="color:rgba(255,255,255,0.55);">Capture what we're committing to before we leave today.</p>
+        <div class="header-line"></div>
+      </div>
+    </div>
+    <div class="content-area">
+      <div class="grid-container animate-child" style="grid-template-columns:1.2fr 1fr;align-items:start;">
+
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <!-- FILL IN: Replace these placeholder action items with real commitments from today's discussion.
+               Suggested format: owner name + action description + target date.
+               Add or remove rows as needed. -->
+          <div class="grid-box-dark" style="gap:14px;">
+            <h4 style="margin-bottom:4px;"><i class="fa-solid fa-list-check"></i> Standing Action Items</h4>
+
+            <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.07);">
+              <i class="fa-solid fa-circle-arrow-right" style="color:var(--green);margin-top:3px;flex-shrink:0;"></i>
+              <div>
+                <!-- FILL IN: Replace with action item #1. Format: "Owner: [Name] — [Action description] by [Date]" -->
+                <p style="font-size:0.88rem;color:rgba(255,255,255,0.75);">[FILL IN: Action item #1 — Owner + task + target date]</p>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.07);">
+              <i class="fa-solid fa-circle-arrow-right" style="color:var(--green);margin-top:3px;flex-shrink:0;"></i>
+              <div>
+                <!-- FILL IN: Replace with action item #2 -->
+                <p style="font-size:0.88rem;color:rgba(255,255,255,0.75);">[FILL IN: Action item #2 — Owner + task + target date]</p>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.07);">
+              <i class="fa-solid fa-circle-arrow-right" style="color:var(--green);margin-top:3px;flex-shrink:0;"></i>
+              <div>
+                <!-- FILL IN: Replace with action item #3 -->
+                <p style="font-size:0.88rem;color:rgba(255,255,255,0.75);">[FILL IN: Action item #3 — Owner + task + target date]</p>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;">
+              <i class="fa-solid fa-circle-arrow-right" style="color:var(--green);margin-top:3px;flex-shrink:0;"></i>
+              <div>
+                <!-- FILL IN: Replace with action item #4 (add more rows above if needed) -->
+                <p style="font-size:0.88rem;color:rgba(255,255,255,0.75);">[FILL IN: Action item #4 — Owner + task + target date]</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="notes-form">
+          <label><i class="fa-solid fa-pen-to-square" style="margin-right:6px;"></i>Capture a Note or Action</label>
+          <select id="sheet-section">
+            <option value="Stratech Overview">Stratech Overview</option>
+            <option value="Key Findings">Key Findings</option>
+            <option value="Strategic Priorities">Strategic Priorities</option>
+            <option value="Team Implications">Team Implications</option>
+            <option value="Discussion">Discussion</option>
+            <option value="Action Item">Action Item</option>
+            <option value="General">General</option>
+          </select>
+          <textarea id="sheet-note" placeholder="Type your note or action item here…"></textarea>
+          <div class="notes-form-row">
+            <button id="sheet-submit-btn" onclick="submitNoteToSheet()">Save to Sheet</button>
+            <span id="sheet-status"></span>
+            <a id="sheet-link" style="display:none;" target="_blank">Open Sheet ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div><!-- /#slides -->
+
+<!-- Navigation dots (8 slides) -->
+<div id="nav-dots">
+  <div class="dot active" onclick="goTo(0)"></div>
+  <div class="dot" onclick="goTo(1)"></div>
+  <div class="dot" onclick="goTo(2)"></div>
+  <div class="dot" onclick="goTo(3)"></div>
+  <div class="dot" onclick="goTo(4)"></div>
+  <div class="dot" onclick="goTo(5)"></div>
+  <div class="dot" onclick="goTo(6)"></div>
+  <div class="dot" onclick="goTo(7)"></div>
+</div>
+
+<div class="arrow" id="arrow-prev" onclick="changeSlide(-1)" style="display:none;">&#8592;</div>
+<div class="arrow" id="arrow-next" onclick="changeSlide(1)">&#8594;</div>
+
+<div id="slide-counter">1 / 8</div>
+<div id="hint">&#8592; &#8594; Arrow keys or click to navigate</div>
+
+<!-- Archive button -->
+<button id="archive-btn" onclick="openArchive()" title="Meeting Archive">
+  <i class="fa-solid fa-clock-rotate-left"></i> Archive
+</button>
+
+<!-- Archive overlay -->
+<div id="archive-overlay">
+  <div id="archive-panel">
+    <div id="archive-header">
+      <h2><i class="fa-solid fa-clock-rotate-left" style="color:var(--green);margin-right:10px;"></i>Meeting Archive</h2>
+      <button id="archive-close" onclick="closeArchive()" title="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div id="archive-grid"></div>
+  </div>
+</div>
+
+<script>
+  const TOTAL = 8;
+  let current = 0;
+
+  function goTo(n) {
+    if (n < 0 || n >= TOTAL) return;
+    const slides = document.querySelectorAll('.slide');
+    const dots   = document.querySelectorAll('.dot');
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    updateNav();
+  }
+
+  function changeSlide(dir) { goTo(current + dir); }
+
+  function updateNav() {
+    document.getElementById('slide-counter').textContent = (current + 1) + ' / ' + TOTAL;
+    document.getElementById('arrow-prev').style.display = current === 0         ? 'none' : 'flex';
+    document.getElementById('arrow-next').style.display = current === TOTAL - 1 ? 'none' : 'flex';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   changeSlide(-1);
+  });
+
+  // ── Next Steps sheet integration ────────────────────────────────
+  function submitNoteToSheet() {
+    var section = document.getElementById('sheet-section').value;
+    var note    = document.getElementById('sheet-note').value.trim();
+    if (!note) return;
+
+    var btn    = document.getElementById('sheet-submit-btn');
+    var status = document.getElementById('sheet-status');
+    btn.disabled   = true;
+    status.textContent = 'Saving…';
+
+    google.script.run
+      .withSuccessHandler(function(sheetUrl) {
+        showSheetLink(sheetUrl);
+        status.textContent = 'Saved!';
+        btn.disabled = false;
+        document.getElementById('sheet-note').value = '';
+        setTimeout(function() { status.textContent = ''; }, 3000);
+      })
+      .withFailureHandler(function(err) {
+        status.textContent = 'Error: ' + ((err && err.message) || 'could not save');
+        status.style.color = '#ff4444';
+        btn.disabled = false;
+        setTimeout(function() {
+          status.textContent = '';
+          status.style.color = 'var(--green)';
+        }, 4000);
+      })
+      .saveNoteToSheet(section, note);
+  }
+
+  function showSheetLink(sheetUrl) {
+    var link = document.getElementById('sheet-link');
+    if (sheetUrl) {
+      link.href = sheetUrl;
+      link.style.display = 'inline';
+    }
+  }
+
+  // ── Archive overlay ─────────────────────────────────────────────
+  var archiveLoaded = false;
+
+  function openArchive() {
+    document.getElementById('archive-overlay').classList.add('open');
+    loadArchiveCards();
+  }
+
+  function closeArchive() {
+    document.getElementById('archive-overlay').classList.remove('open');
+  }
+
+  function loadArchiveCards() {
+    if (archiveLoaded) return;
+    var grid = document.getElementById('archive-grid');
+    grid.innerHTML = '<div id="archive-loading">Loading meetings…</div>';
+
+    google.script.run
+      .withSuccessHandler(function(meetings) {
+        archiveLoaded = true;
+        grid.innerHTML = '';
+        if (!meetings || meetings.length === 0) {
+          grid.innerHTML = '<div id="archive-loading">No meetings found.</div>';
+          return;
+        }
+        meetings.forEach(function(meeting) {
+          var card = document.createElement('div');
+          card.className = 'archive-card';
+          card.innerHTML =
+            '<div class="card-date">'  + escHtml(meeting.date)              + '</div>' +
+            '<div class="card-title">' + escHtml(meeting.title)             + '</div>' +
+            '<div class="card-desc">'  + escHtml(meeting.description || '') + '</div>';
+          card.addEventListener('click', function() {
+            var base = window.top.location.href.split('?')[0];
+            window.top.location.href = base + '?meeting=' + encodeURIComponent(meeting.id);
+          });
+          grid.appendChild(card);
+        });
+      })
+      .withFailureHandler(function(err) {
+        grid.innerHTML = '<div id="archive-loading">Error: ' + escHtml((err && err.message) || 'Unknown error') + '</div>';
+      })
+      .getMeetingsManifest();
+  }
+
+  function escHtml(str) {
+    var d = document.createElement('div');
+    d.appendChild(document.createTextNode(String(str)));
+    return d.innerHTML;
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeArchive();
+  });
+</script>
+</body>
+</html>
