@@ -1,10 +1,10 @@
 const MEETINGS = [
   {
     id: 'june-2026',
-    title: 'June 2026 Team Meeting',
+    title: 'EPB Strategy Check 2026',
     date: 'June 2026',
-    description: 'Stratech Strategic Planning Walkthrough',
-    file: 'Index'
+    description: 'Growth story, 4 strategic pillars, team wins, and 2027 targets.',
+    file: 'index'
   },
   {
     id: 'april-2026',
@@ -17,7 +17,7 @@ const MEETINGS = [
 
 function doGet(e) {
   var meetingId = e && e.parameter && e.parameter.meeting;
-  var file = 'Index';
+  var file = 'index';
 
   if (meetingId && meetingId !== 'current') {
     for (var i = 0; i < MEETINGS.length; i++) {
