@@ -24,7 +24,7 @@ jobs:
       - name: Write CLASP credentials
         env:
           CLASPRC_JSON: ${{ secrets.CLASPRC_JSON }}
-        run: echo "$CLASPRC_JSON" > ~/.clasprc.json
+        run: printf '%s' "$CLASPRC_JSON" | tr -d '\000-\037' > ~/.clasprc.json
 
       - name: Validate credentials file
         run: |
