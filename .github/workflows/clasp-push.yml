@@ -18,15 +18,12 @@ jobs:
         with:
           node-version: 'lts/*'
 
-      - name: Install CLASP
-        run: npm install -g @google/clasp
-
       - name: Write CLASP credentials
         env:
           CLASPRC_JSON: ${{ secrets.CLASPRC_JSON }}
         run: printf '%s' "$CLASPRC_JSON" | tr -d '\000-\037' > ~/.clasprc.json
 
-      - name: Pre-refresh access token
+      - name: Refresh access token
         run: |
           node -e "
             const https = require('https');
@@ -51,22 +48,12 @@ jobs:
                 t.expiry_date = Date.now() + r.expires_in * 1000;
                 if (r.refresh_token) t.refresh_token = r.refresh_token;
                 fs.writeFileSync(rcPath, JSON.stringify(rc));
-                console.log('Access token refreshed, expires:', new Date(t.expiry_date).toISOString());
+                console.log('Token refreshed, expires:', new Date(t.expiry_date).toISOString());
               });
             });
             req.on('error', e => { console.error('Network error:', e.message); process.exit(1); });
             req.write(body); req.end();
           "
 
-      - name: Push to Google Apps Script (with retries)
-        run: |
-          for attempt in 1 2 3; do
-            echo "Push attempt $attempt/3..."
-            clasp push --force && { echo "Push succeeded on attempt $attempt"; exit 0; }
-            [ $attempt -lt 3 ] && { echo "Failed, waiting 20s before retry..."; sleep 20; }
-          done
-          echo "All 3 push attempts failed"
-          exit 1
-
-      - name: Verify push succeeded
-        run: clasp status
+      - name: Push to Google Apps Script
+        run: node scripts/push.js
