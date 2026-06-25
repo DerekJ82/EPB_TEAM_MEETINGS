@@ -25,6 +25,7 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    h1, h2 { color: var(--white); }
 
     html, body {
       width: 100%; height: 100%;
@@ -315,6 +316,19 @@
     .archive-card .card-desc  { font-size: 0.78rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
     #archive-loading { grid-column: 1/-1; text-align: center; color: rgba(255,255,255,0.4); font-size: 0.9rem; padding: 40px; }
 
+    /* ── Segment click-reveal ───────────────────────── */
+    .seg-reveal {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      pointer-events: none;
+    }
+    .seg-reveal.shown { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .seg-hint {
+      position: absolute; bottom: 10px; right: 0; left: 0; text-align: center;
+      font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); pointer-events: none;
+    }
+
     /* ── Closing stars ───────────────────────────────── */
     .star { position: absolute; border-radius: 50%; background: rgba(155,89,182,0.6); animation: twinkle 2s infinite alternate; }
     @keyframes twinkle { from { opacity: 0.2; transform: scale(0.8); } to { opacity: 1; transform: scale(1.2); } }
@@ -330,7 +344,7 @@
     <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;text-align:center;">
       <div class="anim eyebrow" style="margin-bottom:18px;">TELUS Enterprise &amp; Public Business</div>
       <h1 class="anim" style="font-size:clamp(2.8rem,5.5vw,5rem);font-weight:900;line-height:1.1;margin-bottom:16px;">
-        June<br><span style="color:var(--purple-mid);">Team Meeting</span>
+        <span style="color:var(--purple-mid);">June</span><br><span style="color:var(--purple-mid);">Team Meeting</span>
       </h1>
       <p class="anim" style="font-size:clamp(1rem,1.6vw,1.3rem);color:rgba(255,255,255,0.7);margin-bottom:36px;letter-spacing:1px;">
         S&amp;P Team &nbsp;·&nbsp; Midsummer, Milestones &amp; More &nbsp;·&nbsp; June 2026
@@ -520,35 +534,36 @@
       <div class="slide-title">Deliver <span style="color:var(--green);">$1,050M+</span> with Focused Segment Strategy</div>
       <p class="slide-sub" style="margin-bottom:0;">Empowered by AI tools across Growth &amp; Protection Zones</p>
     </div>
-    <div class="g2" style="flex:1;min-height:0;">
-      <div class="anim seg-card seg-growth" style="animation-delay:0.2s;">
+    <div class="g2" style="flex:1;min-height:0;position:relative;" id="seg-grid">
+      <div class="seg-reveal seg-card seg-growth">
         <span class="pill pill-green">🚀 Growth Zone</span>
         <div class="seg-val" style="color:var(--green);">$285.1M</div>
         <div class="seg-yoy" style="color:var(--green);">⬆ +13.6% YoY Direct Margin</div>
         <div class="seg-name" style="margin-bottom:10px;">Mid-Market Large (&lt;1,000 Employees)</div>
         <p style="font-size:clamp(0.78rem,1vw,0.9rem);color:rgba(255,255,255,0.88);line-height:1.5;">Capture market share through standardized pricing &amp; value propositions. Highest growth opportunity segment.</p>
       </div>
-      <div class="anim seg-card seg-protect" style="animation-delay:0.35s;">
+      <div class="seg-reveal seg-card seg-protect">
         <span class="pill pill-purple">🛡️ Protection Zone</span>
         <div class="seg-val" style="color:#c39bd3;">$460.9M</div>
         <div class="seg-yoy" style="color:#c39bd3;">⬆ +4.1% YoY Direct Margin</div>
         <div class="seg-name" style="margin-bottom:10px;">Enterprise (1,000+ Employees)</div>
         <p style="font-size:clamp(0.78rem,1vw,0.9rem);color:rgba(255,255,255,0.88);line-height:1.5;">Grow revenue through optimized pricing, AI retention &amp; vertical-led growth. Deepening wallet share in our largest accounts.</p>
       </div>
-      <div class="anim seg-card seg-teal" style="animation-delay:0.5s;">
+      <div class="seg-reveal seg-card seg-teal">
         <span class="pill pill-teal">🌐 Public Local</span>
         <div class="seg-val" style="color:var(--teal);">$115.2M</div>
         <div class="seg-yoy" style="color:var(--teal);">⬆ +1.2% YoY Direct Margin</div>
         <div class="seg-name" style="margin-bottom:10px;">Public Local Segment</div>
         <p style="font-size:clamp(0.78rem,1vw,0.9rem);color:rgba(255,255,255,0.88);line-height:1.5;">Grow margins through retention, operational efficiency &amp; product intensity. Proactive renewal focus.</p>
       </div>
-      <div class="anim seg-card seg-warn" style="animation-delay:0.65s;">
+      <div class="seg-reveal seg-card seg-warn">
         <span class="pill pill-red">⚠️ Headwind</span>
         <div class="seg-val" style="color:#f1948a;">-$45M</div>
         <div class="seg-yoy" style="color:#f1948a;">Annual headwind — actively managed</div>
         <div class="seg-name" style="margin-bottom:10px;">Top 5 Public Sector (Generational Renewals)</div>
         <p style="font-size:clamp(0.78rem,1vw,0.9rem);color:rgba(255,255,255,0.88);line-height:1.5;">Structural headwinds from large contract renewals. Targeted mitigation programs and executive engagement underway.</p>
       </div>
+      <div class="seg-hint" id="seg-hint">→ click to reveal each segment</div>
     </div>
   </div>
 
@@ -661,29 +676,29 @@
       <p class="slide-sub" style="margin-bottom:0;">AI embedded across the entire EPB customer journey — <strong style="color:var(--gold);">$19M EBITDA improvement by 2027</strong></p>
     </div>
     <div class="anim g4" style="margin-bottom:14px;flex-shrink:0;">
-      <div class="card" style="text-align:center;padding:14px 10px;">
-        <div style="font-size:26px;margin-bottom:6px;">🎯</div>
-        <div style="font-size:clamp(0.7rem,0.9vw,0.82rem);font-weight:700;color:var(--purple-mid);margin-bottom:4px;">01</div>
-        <div style="font-size:clamp(0.82rem,1.05vw,0.94rem);font-weight:700;">Sales &amp; Presales</div>
-        <div style="font-size:clamp(0.7rem,0.88vw,0.8rem);color:rgba(255,255,255,0.5);margin-top:4px;line-height:1.4;">AI scoring, personalized proposals, dynamic pricing</div>
+      <div class="card" style="text-align:center;padding:18px 12px;">
+        <div style="font-size:34px;margin-bottom:8px;">🎯</div>
+        <div style="font-size:clamp(0.78rem,1vw,0.9rem);font-weight:700;color:#c39bd3;margin-bottom:6px;">01</div>
+        <div style="font-size:clamp(0.9rem,1.15vw,1.05rem);font-weight:700;color:var(--white);">Sales &amp; Presales</div>
+        <div style="font-size:clamp(0.76rem,0.96vw,0.86rem);color:rgba(255,255,255,0.88);margin-top:6px;line-height:1.45;">AI scoring, personalized proposals, dynamic pricing</div>
       </div>
-      <div class="card" style="text-align:center;padding:14px 10px;">
-        <div style="font-size:26px;margin-bottom:6px;">⚙️</div>
-        <div style="font-size:clamp(0.7rem,0.9vw,0.82rem);font-weight:700;color:var(--purple-mid);margin-bottom:4px;">02</div>
-        <div style="font-size:clamp(0.82rem,1.05vw,0.94rem);font-weight:700;">Order Implementation</div>
-        <div style="font-size:clamp(0.7rem,0.88vw,0.8rem);color:rgba(255,255,255,0.5);margin-top:4px;line-height:1.4;">Intelligent automation, delivery prediction, config bots</div>
+      <div class="card" style="text-align:center;padding:18px 12px;">
+        <div style="font-size:34px;margin-bottom:8px;">⚙️</div>
+        <div style="font-size:clamp(0.78rem,1vw,0.9rem);font-weight:700;color:#c39bd3;margin-bottom:6px;">02</div>
+        <div style="font-size:clamp(0.9rem,1.15vw,1.05rem);font-weight:700;color:var(--white);">Order Implementation</div>
+        <div style="font-size:clamp(0.76rem,0.96vw,0.86rem);color:rgba(255,255,255,0.88);margin-top:6px;line-height:1.45;">Intelligent automation, delivery prediction, config bots</div>
       </div>
-      <div class="card" style="text-align:center;padding:14px 10px;">
-        <div style="font-size:26px;margin-bottom:6px;">🛡️</div>
-        <div style="font-size:clamp(0.7rem,0.9vw,0.82rem);font-weight:700;color:var(--purple-mid);margin-bottom:4px;">03</div>
-        <div style="font-size:clamp(0.82rem,1.05vw,0.94rem);font-weight:700;">Support &amp; Compliance</div>
-        <div style="font-size:clamp(0.7rem,0.88vw,0.8rem);color:rgba(255,255,255,0.5);margin-top:4px;line-height:1.4;">Ticket routing, churn prediction, compliance audit bots</div>
+      <div class="card" style="text-align:center;padding:18px 12px;">
+        <div style="font-size:34px;margin-bottom:8px;">🛡️</div>
+        <div style="font-size:clamp(0.78rem,1vw,0.9rem);font-weight:700;color:#c39bd3;margin-bottom:6px;">03</div>
+        <div style="font-size:clamp(0.9rem,1.15vw,1.05rem);font-weight:700;color:var(--white);">Support &amp; Compliance</div>
+        <div style="font-size:clamp(0.76rem,0.96vw,0.86rem);color:rgba(255,255,255,0.88);margin-top:6px;line-height:1.45;">Ticket routing, churn prediction, compliance audit bots</div>
       </div>
-      <div class="card" style="text-align:center;padding:14px 10px;">
-        <div style="font-size:26px;margin-bottom:6px;">💰</div>
-        <div style="font-size:clamp(0.7rem,0.9vw,0.82rem);font-weight:700;color:var(--purple-mid);margin-bottom:4px;">04</div>
-        <div style="font-size:clamp(0.82rem,1.05vw,0.94rem);font-weight:700;">Revenue Assurance</div>
-        <div style="font-size:clamp(0.7rem,0.88vw,0.8rem);color:rgba(255,255,255,0.5);margin-top:4px;line-height:1.4;">Contract-to-bill reconciliation, anomaly detection</div>
+      <div class="card" style="text-align:center;padding:18px 12px;">
+        <div style="font-size:34px;margin-bottom:8px;">💰</div>
+        <div style="font-size:clamp(0.78rem,1vw,0.9rem);font-weight:700;color:#c39bd3;margin-bottom:6px;">04</div>
+        <div style="font-size:clamp(0.9rem,1.15vw,1.05rem);font-weight:700;color:var(--white);">Revenue Assurance</div>
+        <div style="font-size:clamp(0.76rem,0.96vw,0.86rem);color:rgba(255,255,255,0.88);margin-top:6px;line-height:1.45;">Contract-to-bill reconciliation, anomaly detection</div>
       </div>
     </div>
     <div class="anim" style="flex-shrink:0;margin-bottom:8px;">
@@ -786,39 +801,36 @@
       </div>
     </div>
 
-    <div class="anim g2" style="flex:1;min-height:0;position:relative;z-index:1;">
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
-            <h3 style="margin-bottom:0;">Total Programs Impact: <span style="color:var(--green);">+$38M</span></h3>
-            <span class="pill pill-green">2027 EST: $783.1M</span>
-          </div>
-          <div style="font-size:clamp(0.78rem,1vw,0.9rem);color:rgba(255,255,255,0.55);margin-bottom:8px;">
-            $745M Baseline → <strong style="color:var(--white);">$783M Estimate</strong>
-          </div>
-          <div class="prog-track"><div class="prog-fill" style="width:85%;"></div></div>
+    <div class="anim g3" style="flex:1;min-height:0;position:relative;z-index:1;">
+      <div class="card" style="display:flex;flex-direction:column;justify-content:center;gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <h3 style="margin-bottom:0;">Total Programs Impact: <span style="color:var(--green);">+$38M</span></h3>
+          <span class="pill pill-green">2027 EST: $783.1M</span>
         </div>
-        <div class="g2">
-          <div class="card">
-            <h3 style="margin-bottom:6px;">📉 Opex Savings</h3>
-            <div style="font-size:clamp(1.4rem,2.2vw,2rem);font-weight:900;color:var(--green);">-$42M</div>
-            <p style="font-size:clamp(0.72rem,0.9vw,0.82rem);">Opex 2025 vs. 2027 (-13%)</p>
-          </div>
-          <div class="card">
-            <h3 style="margin-bottom:6px;">🤖 AI EBITDA</h3>
-            <div style="font-size:clamp(1.4rem,2.2vw,2rem);font-weight:900;color:var(--gold);">$19M</div>
-            <p style="font-size:clamp(0.72rem,0.9vw,0.82rem);">+$12M vs. 2026 — 60/40 DM/Opex split</p>
-          </div>
+        <div style="font-size:clamp(0.78rem,1vw,0.9rem);color:rgba(255,255,255,0.82);">
+          $745M Baseline → <strong style="color:var(--white);">$783M Estimate</strong>
+        </div>
+        <div class="prog-track"><div class="prog-fill" style="width:85%;"></div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="card" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+          <h3 style="margin-bottom:8px;">📉 Opex Savings</h3>
+          <div style="font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:900;color:var(--green);">-$42M</div>
+          <p style="font-size:clamp(0.76rem,0.96vw,0.86rem);margin-top:4px;">Opex 2025 vs. 2027 (-13%)</p>
+        </div>
+        <div class="card" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+          <h3 style="margin-bottom:8px;">🤖 AI EBITDA</h3>
+          <div style="font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:900;color:var(--gold);">$19M</div>
+          <p style="font-size:clamp(0.76rem,0.96vw,0.86rem);margin-top:4px;">+$12M vs. 2026 — 60/40 DM/Opex split</p>
         </div>
       </div>
-
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;">
-        <div style="font-size:clamp(2.5rem,4vw,3.5rem);">🚀</div>
-        <h2 style="font-size:clamp(1.4rem,2.2vw,2rem);font-weight:900;line-height:1.2;">We Are Not Here to<br><span style="color:var(--purple-mid);">Manage Decline.</span></h2>
-        <p style="font-size:clamp(0.88rem,1.2vw,1.05rem);color:rgba(255,255,255,0.75);line-height:1.6;max-width:360px;">
+      <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;">
+        <div style="font-size:clamp(2rem,3.2vw,2.8rem);">🚀</div>
+        <h2 style="font-size:clamp(1.2rem,1.9vw,1.7rem);font-weight:900;line-height:1.2;">We Are Not Here to<br><span style="color:var(--purple-mid);">Manage Decline.</span></h2>
+        <p style="font-size:clamp(0.86rem,1.1vw,1rem);color:rgba(255,255,255,0.88);line-height:1.6;">
           We are here to <strong style="color:var(--green);">overcome</strong> and <strong style="color:var(--purple-mid);">accelerate</strong> — together.
         </p>
-        <p style="font-size:clamp(0.78rem,1vw,0.9rem);color:rgba(255,255,255,0.45);">
+        <p style="font-size:clamp(0.76rem,0.96vw,0.86rem);color:rgba(255,255,255,0.72);">
           Thank you for everything you've contributed. 🙏<br>Now let's go deliver it.
         </p>
         <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
@@ -893,10 +905,20 @@
 
 <script>
   const TOTAL = 10;
+  const SEG_SLIDE = 5; // 0-based index of Segment Strategy slide
   let current = 0;
+  let segRevealed = 0;
+
+  function resetSegCards() {
+    segRevealed = 0;
+    document.querySelectorAll('#seg-grid .seg-reveal').forEach(function(c) { c.classList.remove('shown'); });
+    var hint = document.getElementById('seg-hint');
+    if (hint) hint.style.display = '';
+  }
 
   function goTo(n) {
     if (n < 0 || n >= TOTAL) return;
+    if (current === SEG_SLIDE || n === SEG_SLIDE) resetSegCards();
     document.querySelectorAll('.slide')[current].classList.remove('active');
     document.querySelectorAll('.dot')[current].classList.remove('active');
     current = n;
@@ -904,7 +926,21 @@
     document.querySelectorAll('.dot')[current].classList.add('active');
     updateNav();
   }
-  function changeSlide(dir) { goTo(current + dir); }
+  function changeSlide(dir) {
+    if (dir > 0 && current === SEG_SLIDE) {
+      var cards = document.querySelectorAll('#seg-grid .seg-reveal');
+      if (segRevealed < cards.length) {
+        cards[segRevealed].classList.add('shown');
+        segRevealed++;
+        if (segRevealed === cards.length) {
+          var hint = document.getElementById('seg-hint');
+          if (hint) hint.style.display = 'none';
+        }
+        return;
+      }
+    }
+    goTo(current + dir);
+  }
   function updateNav() {
     document.getElementById('slide-counter').textContent = (current + 1) + ' / ' + TOTAL;
     document.getElementById('arrow-prev').style.display = current === 0         ? 'none' : 'flex';
