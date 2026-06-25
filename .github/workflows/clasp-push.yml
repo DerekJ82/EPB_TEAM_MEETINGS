@@ -58,8 +58,15 @@ jobs:
             req.write(body); req.end();
           "
 
-      - name: Push to Google Apps Script
-        run: clasp push --force
+      - name: Push to Google Apps Script (with retries)
+        run: |
+          for attempt in 1 2 3; do
+            echo "Push attempt $attempt/3..."
+            clasp push --force && { echo "Push succeeded on attempt $attempt"; exit 0; }
+            [ $attempt -lt 3 ] && { echo "Failed, waiting 20s before retry..."; sleep 20; }
+          done
+          echo "All 3 push attempts failed"
+          exit 1
 
       - name: Verify push succeeded
         run: clasp status
