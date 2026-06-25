@@ -106,7 +106,7 @@
     }
     .slide-sub {
       font-size: clamp(0.88rem, 1.2vw, 1.05rem);
-      color: rgba(255,255,255,0.6); line-height: 1.5; margin-bottom: 18px;
+      color: rgba(255,255,255,0.88); line-height: 1.5; margin-bottom: 18px;
     }
 
     /* ── Shared card ─────────────────────────────────── */
@@ -124,7 +124,7 @@
     }
     .card p {
       font-size: clamp(0.87rem, 1.12vw, 1.01rem);
-      color: rgba(255,255,255,0.68); line-height: 1.65;
+      color: rgba(255,255,255,0.88); line-height: 1.65;
     }
 
     /* ── Metric box ──────────────────────────────────── */
@@ -142,7 +142,7 @@
     .mbox-val.red    { color: #f1948a; }
     .mbox-lbl {
       font-size: clamp(0.74rem, 1vw, 0.84rem);
-      color: rgba(255,255,255,0.55); margin-top: 5px; font-weight: 600;
+      color: rgba(255,255,255,0.82); margin-top: 5px; font-weight: 600;
     }
 
     /* ── Pill badges ─────────────────────────────────── */
@@ -176,7 +176,7 @@
       font-weight: 900; line-height: 1; margin: 8px 0 4px;
     }
     .seg-yoy { font-size: clamp(0.72rem, 1vw, 0.84rem); font-weight: 700; margin-bottom: 4px; }
-    .seg-name { font-size: clamp(0.76rem, 1.02vw, 0.88rem); color: rgba(255,255,255,0.6); }
+    .seg-name { font-size: clamp(0.76rem, 1.02vw, 0.88rem); color: rgba(255,255,255,0.88); }
 
     /* ── Timeline ────────────────────────────────────── */
     .tl { display: flex; flex-direction: column; gap: 10px; }
@@ -187,7 +187,7 @@
     .tl-dot.gold  { background: var(--gold); }
     .tl-line { width: 2px; flex: 1; background: rgba(155,89,182,0.25); min-height: 14px; }
     .tl-item h4 { font-size: clamp(0.82rem, 1.1vw, 0.95rem); font-weight: 700; color: var(--white); }
-    .tl-item p  { font-size: clamp(0.78rem, 1.02vw, 0.9rem); color: rgba(255,255,255,0.55); margin-top: 2px; }
+    .tl-item p  { font-size: clamp(0.78rem, 1.02vw, 0.9rem); color: rgba(255,255,255,0.85); margin-top: 2px; }
 
     /* ── Tool badge ──────────────────────────────────── */
     .tool-badge {
@@ -197,19 +197,19 @@
     }
     .tool-badge .ti { font-size: 22px; flex-shrink: 0; }
     .tool-badge .tn { font-size: clamp(0.8rem, 1.05vw, 0.94rem); font-weight: 700; color: var(--white); }
-    .tool-badge .td { font-size: clamp(0.74rem, 0.96vw, 0.84rem); color: rgba(255,255,255,0.5); margin-top: 2px; }
+    .tool-badge .td { font-size: clamp(0.74rem, 0.96vw, 0.84rem); color: rgba(255,255,255,0.82); margin-top: 2px; }
 
     /* ── Calendar event card ─────────────────────────── */
     .cal-card {
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px; padding: 14px 12px; text-align: center;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px; padding: 20px 16px; text-align: center;
       transition: transform 0.2s, border-color 0.2s; cursor: default;
     }
     .cal-card:hover { transform: scale(1.04); border-color: rgba(155,89,182,0.55); background: rgba(155,89,182,0.1); }
-    .cal-date { font-size: 11px; font-weight: 700; color: var(--purple-mid); margin-bottom: 4px; letter-spacing: 1px; text-transform: uppercase; }
-    .cal-icon { font-size: 28px; margin-bottom: 5px; }
-    .cal-name { font-size: clamp(0.72rem, 0.95vw, 0.84rem); font-weight: 700; color: var(--white); line-height: 1.3; }
-    .cal-desc { font-size: clamp(0.7rem, 0.92vw, 0.8rem); color: rgba(255,255,255,0.5); margin-top: 4px; line-height: 1.4; }
+    .cal-date { font-size: 13px; font-weight: 700; color: var(--purple-mid); margin-bottom: 6px; letter-spacing: 1px; text-transform: uppercase; }
+    .cal-icon { font-size: 36px; margin-bottom: 8px; }
+    .cal-name { font-size: clamp(0.85rem, 1.1vw, 1rem); font-weight: 700; color: var(--white); line-height: 1.3; }
+    .cal-desc { font-size: clamp(0.7rem, 0.92vw, 0.8rem); color: rgba(255,255,255,0.82); margin-top: 4px; line-height: 1.4; }
 
     /* ── Progress bar ────────────────────────────────── */
     .prog-track { width: 100%; height: 5px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; margin-top: 8px; }
@@ -336,7 +336,6 @@
         S&amp;P Team &nbsp;·&nbsp; Midsummer, Milestones &amp; More &nbsp;·&nbsp; June 2026
       </p>
       <div class="anim" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-        <span class="pill pill-purple">EPB Strategy Check 2026</span>
         <span class="pill pill-green">Vancouver, BC 🍁</span>
         <span class="pill pill-teal">Pride Month 🏳️‍🌈</span>
       </div>
@@ -460,7 +459,7 @@
       <div class="slide-title">Key Dates &amp; Milestones</div>
       <p class="slide-sub" style="margin-bottom:0;">Holidays, celebrations &amp; team moments to mark 🎉</p>
     </div>
-    <div class="anim" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;flex:1;min-height:0;">
+    <div class="anim" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;flex:1;min-height:0;">
       <div class="cal-card">
         <div class="cal-date">June 21</div>
         <div class="cal-icon">🪶</div>
@@ -474,7 +473,7 @@
         <div class="cal-desc">Longest day of the year — peak energy, peak momentum</div>
       </div>
       <div class="cal-card" style="border-color:rgba(255,100,150,0.4);background:rgba(255,100,150,0.07);">
-        <div class="cal-date">June 24 · Today</div>
+        <div class="cal-date">June 24 · Yesterday</div>
         <div class="cal-icon">🏳️‍🌈</div>
         <div class="cal-name">Vancouver Pride Day</div>
         <div class="cal-desc">Celebrating diversity, inclusion &amp; belonging on our team</div>
@@ -484,12 +483,6 @@
         <div class="cal-icon">🍁</div>
         <div class="cal-name">Canada Day</div>
         <div class="cal-desc">159 years of Canada — and TELUS powering it forward</div>
-      </div>
-      <div class="cal-card">
-        <div class="cal-date">July 4</div>
-        <div class="cal-icon">🎆</div>
-        <div class="cal-name">Independence Day (US)</div>
-        <div class="cal-desc">Cross-border team shoutout to our US colleagues!</div>
       </div>
       <div class="cal-card" style="border-color:rgba(155,89,182,0.45);background:rgba(155,89,182,0.1);">
         <div class="cal-date">July 2026</div>
@@ -527,34 +520,34 @@
       <div class="slide-title">Deliver <span style="color:var(--green);">$1,050M+</span> with Focused Segment Strategy</div>
       <p class="slide-sub" style="margin-bottom:0;">Empowered by AI tools across Growth &amp; Protection Zones</p>
     </div>
-    <div class="anim g2" style="flex:1;min-height:0;">
-      <div class="seg-card seg-growth">
+    <div class="g2" style="flex:1;min-height:0;">
+      <div class="anim seg-card seg-growth" style="animation-delay:0.2s;">
         <span class="pill pill-green">🚀 Growth Zone</span>
         <div class="seg-val" style="color:var(--green);">$285.1M</div>
         <div class="seg-yoy" style="color:var(--green);">⬆ +13.6% YoY Direct Margin</div>
         <div class="seg-name" style="margin-bottom:10px;">Mid-Market Large (&lt;1,000 Employees)</div>
-        <p style="font-size:clamp(0.78rem,1vw,0.9rem);color:rgba(255,255,255,0.6);line-height:1.5;">Capture market share through standardized pricing &amp; value propositions. Highest growth opportunity segment.</p>
+        <p style="font-size:clamp(0.78rem,1vw,0.9rem);color:rgba(255,255,255,0.88);line-height:1.5;">Capture market share through standardized pricing &amp; value propositions. Highest growth opportunity segment.</p>
       </div>
-      <div class="seg-card seg-protect">
+      <div class="anim seg-card seg-protect" style="animation-delay:0.35s;">
         <span class="pill pill-purple">🛡️ Protection Zone</span>
         <div class="seg-val" style="color:#c39bd3;">$460.9M</div>
         <div class="seg-yoy" style="color:#c39bd3;">⬆ +4.1% YoY Direct Margin</div>
         <div class="seg-name" style="margin-bottom:10px;">Enterprise (1,000+ Employees)</div>
-        <p style="font-size:clamp(0.78rem,1vw,0.9rem);color:rgba(255,255,255,0.6);line-height:1.5;">Grow revenue through optimized pricing, AI retention &amp; vertical-led growth. Deepening wallet share in our largest accounts.</p>
+        <p style="font-size:clamp(0.78rem,1vw,0.9rem);color:rgba(255,255,255,0.88);line-height:1.5;">Grow revenue through optimized pricing, AI retention &amp; vertical-led growth. Deepening wallet share in our largest accounts.</p>
       </div>
-      <div class="seg-card seg-teal">
+      <div class="anim seg-card seg-teal" style="animation-delay:0.5s;">
         <span class="pill pill-teal">🌐 Public Local</span>
         <div class="seg-val" style="color:var(--teal);">$115.2M</div>
         <div class="seg-yoy" style="color:var(--teal);">⬆ +1.2% YoY Direct Margin</div>
         <div class="seg-name" style="margin-bottom:10px;">Public Local Segment</div>
-        <p style="font-size:clamp(0.78rem,1vw,0.9rem);color:rgba(255,255,255,0.6);line-height:1.5;">Grow margins through retention, operational efficiency &amp; product intensity. Proactive renewal focus.</p>
+        <p style="font-size:clamp(0.78rem,1vw,0.9rem);color:rgba(255,255,255,0.88);line-height:1.5;">Grow margins through retention, operational efficiency &amp; product intensity. Proactive renewal focus.</p>
       </div>
-      <div class="seg-card seg-warn">
+      <div class="anim seg-card seg-warn" style="animation-delay:0.65s;">
         <span class="pill pill-red">⚠️ Headwind</span>
         <div class="seg-val" style="color:#f1948a;">-$45M</div>
         <div class="seg-yoy" style="color:#f1948a;">Annual headwind — actively managed</div>
         <div class="seg-name" style="margin-bottom:10px;">Top 5 Public Sector (Generational Renewals)</div>
-        <p style="font-size:clamp(0.78rem,1vw,0.9rem);color:rgba(255,255,255,0.6);line-height:1.5;">Structural headwinds from large contract renewals. Targeted mitigation programs and executive engagement underway.</p>
+        <p style="font-size:clamp(0.78rem,1vw,0.9rem);color:rgba(255,255,255,0.88);line-height:1.5;">Structural headwinds from large contract renewals. Targeted mitigation programs and executive engagement underway.</p>
       </div>
     </div>
   </div>
