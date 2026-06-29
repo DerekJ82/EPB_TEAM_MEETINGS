@@ -28,7 +28,9 @@ function doGet(e) {
     }
   }
 
-  return HtmlService.createHtmlOutputFromFile(file)
+  var tpl = HtmlService.createTemplateFromFile(file);
+  tpl.execUrl = ScriptApp.getService().getUrl();
+  return tpl.evaluate()
       .setTitle('EPB Team Meeting - June 2026')
       .setSandboxMode(HtmlService.SandboxMode.IFRAME)
       .addMetaTag('viewport', 'width=device-width, initial-scale=1');
@@ -36,10 +38,6 @@ function doGet(e) {
 
 function getMeetingsManifest() {
   return MEETINGS;
-}
-
-function getExecUrl() {
-  return ScriptApp.getService().getUrl();
 }
 
 // This function receives notes from the presentation and saves them to a Google Sheet

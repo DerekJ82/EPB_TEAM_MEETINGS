@@ -975,9 +975,8 @@
       .saveNoteToSheet(section, text);
   }
 
+  var EXEC_URL = '<?!= execUrl ?>';
   var archiveLoaded = false;
-  var execUrl = null;
-  google.script.run.withSuccessHandler(function(url) { execUrl = url; }).getExecUrl();
   function openArchive() { document.getElementById('archive-overlay').classList.add('open'); loadArchiveCards(); }
   function closeArchive() { document.getElementById('archive-overlay').classList.remove('open'); }
   function loadArchiveCards() {
@@ -991,7 +990,7 @@
         meetings.forEach(function(m) {
           var c = document.createElement('div'); c.className = 'archive-card';
           c.innerHTML = '<div class="card-date">' + escHtml(m.date) + '</div><div class="card-title">' + escHtml(m.title) + '</div><div class="card-desc">' + escHtml(m.description||'') + '</div>';
-          c.addEventListener('click', function() { window.location.href = execUrl + '?meeting=' + encodeURIComponent(m.id); });
+          c.addEventListener('click', function() { window.location.href = EXEC_URL + '?meeting=' + encodeURIComponent(m.id); });
           grid.appendChild(c);
         });
       })

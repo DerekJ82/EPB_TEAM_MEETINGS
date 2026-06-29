@@ -1343,9 +1343,8 @@
   }
 
   // ── Archive overlay ─────────────────────────────────────────────
+  const EXEC_URL = '<?!= execUrl ?>';
   let archiveLoaded = false;
-  let execUrl = null;
-  google.script.run.withSuccessHandler(function(url) { execUrl = url; }).getExecUrl();
 
   function openArchive() {
     document.getElementById('archive-overlay').classList.add('open');
@@ -1377,7 +1376,7 @@
             '<div class="card-title">' + escHtml(meeting.title)             + '</div>' +
             '<div class="card-desc">'  + escHtml(meeting.description || '') + '</div>';
           card.addEventListener('click', function() {
-            window.location.href = execUrl + '?meeting=' + encodeURIComponent(meeting.id);
+            window.location.href = EXEC_URL + '?meeting=' + encodeURIComponent(meeting.id);
           });
           grid.appendChild(card);
         });
