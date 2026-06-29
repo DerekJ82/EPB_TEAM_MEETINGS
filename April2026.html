@@ -1376,7 +1376,7 @@
             '<div class="card-title">' + escHtml(meeting.title)             + '</div>' +
             '<div class="card-desc">'  + escHtml(meeting.description || '') + '</div>';
           card.addEventListener('click', function() {
-            window.location.href = EXEC_URL + '?meeting=' + encodeURIComponent(meeting.id);
+            window.top.location.href = EXEC_URL + '?meeting=' + encodeURIComponent(meeting.id);
           });
           grid.appendChild(card);
         });
