@@ -31,8 +31,10 @@ jobs:
             const rcPath = process.env.HOME + '/.clasprc.json';
             const rc = JSON.parse(fs.readFileSync(rcPath, 'utf8'));
             const t = rc.tokens && rc.tokens.default ? rc.tokens.default : rc.token;
-            const body = 'client_id=' + encodeURIComponent(t.client_id)
-              + '&client_secret=' + encodeURIComponent(t.client_secret)
+            const clientId = t.client_id || rc.oauth2ClientSettings.clientId;
+            const clientSecret = t.client_secret || rc.oauth2ClientSettings.clientSecret;
+            const body = 'client_id=' + encodeURIComponent(clientId)
+              + '&client_secret=' + encodeURIComponent(clientSecret)
               + '&refresh_token=' + encodeURIComponent(t.refresh_token)
               + '&grant_type=refresh_token';
             const req = https.request({
