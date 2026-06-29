@@ -38,6 +38,10 @@ function getMeetingsManifest() {
   return MEETINGS;
 }
 
+function getExecUrl() {
+  return ScriptApp.getService().getUrl();
+}
+
 // This function receives notes from the presentation and saves them to a Google Sheet
 function saveNoteToSheet(section, noteText) {
   var props = PropertiesService.getUserProperties();

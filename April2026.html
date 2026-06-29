@@ -1344,6 +1344,8 @@
 
   // ── Archive overlay ─────────────────────────────────────────────
   let archiveLoaded = false;
+  let execUrl = null;
+  google.script.run.withSuccessHandler(function(url) { execUrl = url; }).getExecUrl();
 
   function openArchive() {
     document.getElementById('archive-overlay').classList.add('open');
@@ -1375,8 +1377,7 @@
             '<div class="card-title">' + escHtml(meeting.title)             + '</div>' +
             '<div class="card-desc">'  + escHtml(meeting.description || '') + '</div>';
           card.addEventListener('click', function() {
-            var base = window.top.location.href.split('?')[0];
-            window.top.location.href = base + '?meeting=' + encodeURIComponent(meeting.id);
+            window.location.href = execUrl + '?meeting=' + encodeURIComponent(meeting.id);
           });
           grid.appendChild(card);
         });
