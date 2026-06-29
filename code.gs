@@ -1,7 +1,7 @@
 const MEETINGS = [
   {
     id: 'june-2026',
-    title: 'EPB Strategy Check 2026',
+    title: 'June Team Meeting',
     date: 'June 2026',
     description: 'Growth story, 4 strategic pillars, team wins, and 2027 targets.',
     file: 'index'
