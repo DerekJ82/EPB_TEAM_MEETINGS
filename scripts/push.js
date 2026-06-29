@@ -5,7 +5,7 @@ const https = require('https');
 const fs    = require('fs');
 
 const rc         = JSON.parse(fs.readFileSync(process.env.HOME + '/.clasprc.json', 'utf8'));
-const accessToken = rc.tokens.default.access_token;
+const accessToken = (rc.tokens && rc.tokens.default ? rc.tokens.default : rc.token).access_token;
 const scriptId   = JSON.parse(fs.readFileSync('.clasp.json', 'utf8')).scriptId;
 
 const files = [
